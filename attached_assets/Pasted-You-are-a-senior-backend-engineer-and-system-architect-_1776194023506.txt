@@ -1,0 +1,127 @@
+You are a senior backend engineer and system architect specializing in sports analytics platforms and scalable API design.
+
+I am building a basketball athlete tracking system. I need you to design and critique the backend architecture.
+
+---
+
+## PROJECT OVERVIEW
+
+This is a basketball performance tracking web app.
+
+It stores and analyzes:
+- players
+- games
+- per-game stats (points, assists, rebounds, etc.)
+- optional advanced metrics (efficiency, consistency, fatigue)
+
+Frontend will be React.
+Backend will be Python Flask API.
+
+Database: SQLite for MVP, later PostgreSQL.
+
+---
+
+## CORE REQUIREMENTS
+
+Design a full backend system that supports:
+
+### 1. Player management
+- create player
+- update player
+- delete player
+- fetch all players
+- fetch single player profile
+
+### 2. Game management
+- create game (date, opponent, team context)
+- link stats to a game
+
+### 3. Stats tracking
+For each player per game:
+- points
+- assists
+- rebounds
+- steals
+- blocks
+- turnovers
+- minutes played
+
+### 4. Analytics endpoints
+Must compute:
+- PPG (points per game)
+- APG
+- RPG
+- efficiency rating
+- last 5 games form
+- season totals
+
+---
+
+## ARCHITECTURE REQUIREMENTS
+
+You must design:
+
+### 1. API structure (REST)
+Include full endpoint list like:
+- GET /players
+- POST /players
+- GET /players/:id
+- GET /players/:id/stats
+- POST /games
+- POST /stats
+
+### 2. Database schema
+Design relational tables:
+
+- players
+- games
+- stats (linking player_id + game_id)
+
+Explain relationships clearly.
+
+---
+
+## TECH STACK
+
+- Python Flask (backend framework)
+- SQLite (MVP database)
+- SQLAlchemy optional ORM
+- Flask-CORS for frontend connection
+
+---
+
+## ADVANCED FEATURES (optional but preferred)
+
+Suggest improvements like:
+- authentication system (JWT)
+- role system (coach vs player)
+- caching stats calculations
+- real-time updates (WebSockets)
+- performance optimization
+
+---
+
+## PERFORMANCE ANALYTICS
+
+Explain how to compute:
+- averages per game
+- rolling averages (last 5 games)
+- efficiency rating formula
+- consistency score (variance-based)
+
+---
+
+## OUTPUT FORMAT
+
+1. System architecture overview (simple diagram)
+2. Full database schema (tables + fields + relationships)
+3. Full REST API endpoint list
+4. Example Flask code structure (folders + key files)
+5. Example code snippets for:
+   - creating player
+   - adding stats
+   - computing averages
+6. Critique of the design (what is missing / risks)
+7. Suggested next upgrades for scaling to production
+
+Be strict, technical, and realistic. Treat this like a real SaaS sports analytics backend used by coaches and teams.

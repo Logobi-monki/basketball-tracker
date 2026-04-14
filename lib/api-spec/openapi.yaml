@@ -3,13 +3,22 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Basketball Performance Tracking API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: players
+    description: Player management
+  - name: games
+    description: Game management
+  - name: stats
+    description: Per-game statistics
+  - name: analytics
+    description: Computed analytics and aggregations
+
 paths:
   /healthz:
     get:
@@ -24,6 +33,276 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /players:
+    get:
+      operationId: listPlayers
+      tags: [players]
+      summary: List all players
+      responses:
+        "200":
+          description: List of players
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Player"
+    post:
+      operationId: createPlayer
+      tags: [players]
+      summary: Create a new player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePlayerBody"
+      responses:
+        "201":
+          description: Player created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Player"
+
+  /players/{id}:
+    get:
+      operationId: getPlayer
+      tags: [players]
+      summary: Get a single player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Player details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Player"
+        "404":
+          description: Player not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updatePlayer
+      tags: [players]
+      summary: Update a player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePlayerBody"
+      responses:
+        "200":
+          description: Player updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Player"
+    delete:
+      operationId: deletePlayer
+      tags: [players]
+      summary: Delete a player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Player deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /players/{id}/stats:
+    get:
+      operationId: getPlayerStats
+      tags: [players]
+      summary: Get all stats for a player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Player game stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GameStat"
+
+  /players/{id}/analytics:
+    get:
+      operationId: getPlayerAnalytics
+      tags: [analytics]
+      summary: Get computed analytics for a player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Player analytics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerAnalytics"
+
+  /players/{id}/trend:
+    get:
+      operationId: getPlayerTrend
+      tags: [analytics]
+      summary: Get performance trend data for charts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Performance trend per game
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrendPoint"
+
+  /games:
+    get:
+      operationId: listGames
+      tags: [games]
+      summary: List all games
+      responses:
+        "200":
+          description: List of games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Game"
+    post:
+      operationId: createGame
+      tags: [games]
+      summary: Create a new game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGameBody"
+      responses:
+        "201":
+          description: Game created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Game"
+
+  /games/{id}:
+    get:
+      operationId: getGame
+      tags: [games]
+      summary: Get a single game
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Game details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Game"
+
+  /stats:
+    get:
+      operationId: listStats
+      tags: [stats]
+      summary: List all game stats
+      responses:
+        "200":
+          description: List of stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GameStat"
+    post:
+      operationId: createStat
+      tags: [stats]
+      summary: Record stats for a player in a game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStatBody"
+      responses:
+        "201":
+          description: Stat recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameStat"
+
+  /analytics/leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [analytics]
+      summary: Get top performers across all players
+      responses:
+        "200":
+          description: Leaderboard data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+
+  /analytics/team-summary:
+    get:
+      operationId: getTeamSummary
+      tags: [analytics]
+      summary: Get team-level summary stats
+      responses:
+        "200":
+          description: Team summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TeamSummary"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +313,388 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        team:
+          type: string
+        position:
+          type: string
+        number:
+          type: integer
+        season:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - team
+        - position
+        - number
+        - season
+        - createdAt
+
+    CreatePlayerBody:
+      type: object
+      properties:
+        name:
+          type: string
+        team:
+          type: string
+        position:
+          type: string
+        number:
+          type: integer
+        season:
+          type: string
+      required:
+        - name
+        - team
+        - position
+        - number
+        - season
+
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+        opponent:
+          type: string
+        homeAway:
+          type: string
+        result:
+          type: string
+        teamScore:
+          type: integer
+        opponentScore:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - date
+        - opponent
+        - homeAway
+        - result
+        - teamScore
+        - opponentScore
+        - createdAt
+
+    CreateGameBody:
+      type: object
+      properties:
+        date:
+          type: string
+        opponent:
+          type: string
+        homeAway:
+          type: string
+        result:
+          type: string
+        teamScore:
+          type: integer
+        opponentScore:
+          type: integer
+      required:
+        - date
+        - opponent
+        - homeAway
+        - result
+        - teamScore
+        - opponentScore
+
+    GameStat:
+      type: object
+      properties:
+        id:
+          type: integer
+        playerId:
+          type: integer
+        gameId:
+          type: integer
+        points:
+          type: integer
+        assists:
+          type: integer
+        rebounds:
+          type: integer
+        steals:
+          type: integer
+        blocks:
+          type: integer
+        turnovers:
+          type: integer
+        minutesPlayed:
+          type: number
+        fieldGoalsMade:
+          type: integer
+        fieldGoalsAttempted:
+          type: integer
+        threesMade:
+          type: integer
+        threesAttempted:
+          type: integer
+        freeThrowsMade:
+          type: integer
+        freeThrowsAttempted:
+          type: integer
+        plusMinus:
+          type: integer
+        game:
+          $ref: "#/components/schemas/Game"
+      required:
+        - id
+        - playerId
+        - gameId
+        - points
+        - assists
+        - rebounds
+        - steals
+        - blocks
+        - turnovers
+        - minutesPlayed
+        - fieldGoalsMade
+        - fieldGoalsAttempted
+        - threesMade
+        - threesAttempted
+        - freeThrowsMade
+        - freeThrowsAttempted
+        - plusMinus
+
+    CreateStatBody:
+      type: object
+      properties:
+        playerId:
+          type: integer
+        gameId:
+          type: integer
+        points:
+          type: integer
+        assists:
+          type: integer
+        rebounds:
+          type: integer
+        steals:
+          type: integer
+        blocks:
+          type: integer
+        turnovers:
+          type: integer
+        minutesPlayed:
+          type: number
+        fieldGoalsMade:
+          type: integer
+        fieldGoalsAttempted:
+          type: integer
+        threesMade:
+          type: integer
+        threesAttempted:
+          type: integer
+        freeThrowsMade:
+          type: integer
+        freeThrowsAttempted:
+          type: integer
+        plusMinus:
+          type: integer
+      required:
+        - playerId
+        - gameId
+        - points
+        - assists
+        - rebounds
+        - steals
+        - blocks
+        - turnovers
+        - minutesPlayed
+        - fieldGoalsMade
+        - fieldGoalsAttempted
+        - threesMade
+        - threesAttempted
+        - freeThrowsMade
+        - freeThrowsAttempted
+        - plusMinus
+
+    PlayerAnalytics:
+      type: object
+      properties:
+        playerId:
+          type: integer
+        gamesPlayed:
+          type: integer
+        ppg:
+          type: number
+        apg:
+          type: number
+        rpg:
+          type: number
+        spg:
+          type: number
+        bpg:
+          type: number
+        tpg:
+          type: number
+        mpg:
+          type: number
+        fieldGoalPct:
+          type: number
+        threePointPct:
+          type: number
+        freeThrowPct:
+          type: number
+        efficiencyRating:
+          type: number
+        plusMinusAvg:
+          type: number
+        consistencyScore:
+          type: number
+        fatigueIndex:
+          type: number
+        last5Ppg:
+          type: number
+        last5Apg:
+          type: number
+        last5Rpg:
+          type: number
+        seasonTotalPoints:
+          type: integer
+        seasonTotalAssists:
+          type: integer
+        seasonTotalRebounds:
+          type: integer
+      required:
+        - playerId
+        - gamesPlayed
+        - ppg
+        - apg
+        - rpg
+        - spg
+        - bpg
+        - tpg
+        - mpg
+        - fieldGoalPct
+        - threePointPct
+        - freeThrowPct
+        - efficiencyRating
+        - plusMinusAvg
+        - consistencyScore
+        - fatigueIndex
+        - last5Ppg
+        - last5Apg
+        - last5Rpg
+        - seasonTotalPoints
+        - seasonTotalAssists
+        - seasonTotalRebounds
+
+    TrendPoint:
+      type: object
+      properties:
+        gameId:
+          type: integer
+        date:
+          type: string
+        opponent:
+          type: string
+        points:
+          type: integer
+        assists:
+          type: integer
+        rebounds:
+          type: integer
+        efficiencyRating:
+          type: number
+        plusMinus:
+          type: integer
+      required:
+        - gameId
+        - date
+        - opponent
+        - points
+        - assists
+        - rebounds
+        - efficiencyRating
+        - plusMinus
+
+    LeaderboardEntry:
+      type: object
+      properties:
+        playerId:
+          type: integer
+        playerName:
+          type: string
+        team:
+          type: string
+        position:
+          type: string
+        ppg:
+          type: number
+        apg:
+          type: number
+        rpg:
+          type: number
+        efficiencyRating:
+          type: number
+        gamesPlayed:
+          type: integer
+      required:
+        - playerId
+        - playerName
+        - team
+        - position
+        - ppg
+        - apg
+        - rpg
+        - efficiencyRating
+        - gamesPlayed
+
+    TeamSummary:
+      type: object
+      properties:
+        totalPlayers:
+          type: integer
+        totalGames:
+          type: integer
+        avgPpg:
+          type: number
+        avgApg:
+          type: number
+        avgRpg:
+          type: number
+        topScorer:
+          type: string
+        topAssister:
+          type: string
+        topRebounder:
+          type: string
+      required:
+        - totalPlayers
+        - totalGames
+        - avgPpg
+        - avgApg
+        - avgRpg
+        - topScorer
+        - topAssister
+        - topRebounder

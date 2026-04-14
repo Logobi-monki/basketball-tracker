@@ -1,0 +1,115 @@
+You are a senior product designer + frontend architect specialized in sports analytics dashboards and performance tracking systems.
+
+I am building a basketball athlete tracking software (web app). I want you to design a full dashboard concept and critique/improve the architecture and UI.
+
+## PRODUCT GOAL
+This app tracks basketball player performance over time and helps coaches/players analyze:
+- points, assists, rebounds
+- efficiency metrics
+- game-by-game performance trends
+- consistency and fatigue
+- optional advanced analytics (shot charts, performance score)
+
+## TECH STACK
+- Frontend: React
+- Backend: Flask API (Python)
+- Database: SQLite (later PostgreSQL)
+- Charts: Recharts or Chart.js
+
+---
+
+## DESIGN DIRECTION
+
+I want a hybrid inspiration between:
+
+### 1. ESPN-style sports dashboard
+- data-heavy
+- structured layout
+- stat cards + tables + game logs
+- informational clarity
+
+### 2. Vert-style sports performance dashboard
+- minimal dark UI
+- startup analytics aesthetic
+- KPI-first layout (big numbers)
+- clean cards with subtle borders
+- performance lab feel (less media, more data science)
+
+---
+
+## UI REQUIREMENTS
+
+Design a complete dashboard that includes:
+
+### 1. Layout
+- Sidebar navigation (Dashboard, Players, Games, Analytics)
+- Top bar (player selector + search + date filter)
+- Main content area with modular panels
+
+### 2. KPI Section (very important)
+Show key performance metrics:
+- PPG (points per game)
+- APG (assists per game)
+- RPG (rebounds per game)
+- Efficiency rating
+- +/- impact
+
+Design should emphasize large numbers and minimal labels.
+
+### 3. Performance Visualization
+- Line chart showing performance over time
+- Toggle between stats (points, assists, rebounds)
+- Smooth, modern animation feel
+
+### 4. Secondary Analytics Panels
+Include 2–4 of the following:
+- shot chart / heatmap (basketball court)
+- consistency score
+- fatigue index
+- player comparison module
+
+### 5. Game Log Table
+- clean minimalist table
+- date, opponent, points, assists, rebounds
+- no heavy borders
+- hover highlight style
+
+### 6. Player Profile Section
+- name, team, season summary
+- optional avatar
+- quick stats snapshot
+
+---
+
+## VISUAL STYLE
+
+- Dark theme (near black background)
+- Cards: slightly lighter dark gray
+- Accent color: red OR neon green OR electric blue
+- Typography: bold numbers, minimal labels
+- Grid-based layout
+- High spacing discipline (clean, premium feel)
+
+---
+
+## INTERACTION REQUIREMENTS
+
+- Dashboard should feel like a real analytics product
+- Fast scanning of stats
+- Minimal clutter
+- Modular components
+- Scalable for future features (AI insights, real-time tracking)
+
+---
+
+## OUTPUT FORMAT
+
+1. First, describe the UI/UX concept clearly
+2. Then propose a layout structure (ASCII or grid diagram)
+3. Then suggest component breakdown (React components)
+4. Then suggest improvements or risks in my current approach
+5. Then optionally propose a "next-level version" with advanced features
+
+Be critical. Do not just agree with the idea—improve it.
+
+Focus on making it feel like a real production-grade sports analytics product used by coaches or scouts.

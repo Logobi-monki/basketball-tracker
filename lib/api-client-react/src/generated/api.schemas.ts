@@ -143,6 +143,23 @@ export interface LeaderboardEntry {
   gamesPlayed: number;
 }
 
+export interface VerticalJumpEntry {
+  id: number;
+  playerId: number;
+  valueInches: number;
+  valueCm: number;
+  date: string;
+  notes?: string | null;
+  createdAt: string;
+}
+
+export interface CreateVerticalJumpBody {
+  valueInches?: number;
+  valueCm?: number;
+  date: string;
+  notes?: string;
+}
+
 export interface TeamSummary {
   totalPlayers: number;
   totalGames: number;

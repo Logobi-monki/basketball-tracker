@@ -20,6 +20,7 @@ import type {
   CreateGameBody,
   CreatePlayerBody,
   CreateStatBody,
+  CreateVerticalJumpBody,
   ErrorResponse,
   Game,
   GameStat,
@@ -30,6 +31,7 @@ import type {
   SuccessResponse,
   TeamSummary,
   TrendPoint,
+  VerticalJumpEntry,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
@@ -1246,6 +1248,181 @@ export function useGetLeaderboard<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+/**
+ * @summary Get vertical jump history for a player
+ */
+export const getGetVerticalJumpHistoryUrl = (id: number) => {
+  return `/api/players/${id}/vertical-jump`;
+};
+
+export const getVerticalJumpHistory = async (
+  id: number,
+  options?: RequestInit,
+): Promise<VerticalJumpEntry[]> => {
+  return customFetch<VerticalJumpEntry[]>(getGetVerticalJumpHistoryUrl(id), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetVerticalJumpHistoryQueryKey = (id: number) => {
+  return [`/api/players/${id}/vertical-jump`] as const;
+};
+
+export const getGetVerticalJumpHistoryQueryOptions = <
+  TData = Awaited<ReturnType<typeof getVerticalJumpHistory>>,
+  TError = ErrorType<unknown>,
+>(
+  id: number,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getVerticalJumpHistory>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetVerticalJumpHistoryQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getVerticalJumpHistory>>
+  > = ({ signal }) => getVerticalJumpHistory(id, { signal, ...requestOptions });
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getVerticalJumpHistory>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetVerticalJumpHistoryQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getVerticalJumpHistory>>
+>;
+export type GetVerticalJumpHistoryQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get vertical jump history for a player
+ */
+
+export function useGetVerticalJumpHistory<
+  TData = Awaited<ReturnType<typeof getVerticalJumpHistory>>,
+  TError = ErrorType<unknown>,
+>(
+  id: number,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getVerticalJumpHistory>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetVerticalJumpHistoryQueryOptions(id, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Record a vertical jump measurement
+ */
+export const getAddVerticalJumpUrl = (id: number) => {
+  return `/api/players/${id}/vertical-jump`;
+};
+
+export const addVerticalJump = async (
+  id: number,
+  createVerticalJumpBody: CreateVerticalJumpBody,
+  options?: RequestInit,
+): Promise<VerticalJumpEntry> => {
+  return customFetch<VerticalJumpEntry>(getAddVerticalJumpUrl(id), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createVerticalJumpBody),
+  });
+};
+
+export const getAddVerticalJumpMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof addVerticalJump>>,
+    TError,
+    { id: number; data: BodyType<CreateVerticalJumpBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof addVerticalJump>>,
+  TError,
+  { id: number; data: BodyType<CreateVerticalJumpBody> },
+  TContext
+> => {
+  const mutationKey = ["addVerticalJump"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof addVerticalJump>>,
+    { id: number; data: BodyType<CreateVerticalJumpBody> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return addVerticalJump(id, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AddVerticalJumpMutationResult = NonNullable<
+  Awaited<ReturnType<typeof addVerticalJump>>
+>;
+export type AddVerticalJumpMutationBody = BodyType<CreateVerticalJumpBody>;
+export type AddVerticalJumpMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Record a vertical jump measurement
+ */
+export const useAddVerticalJump = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof addVerticalJump>>,
+    TError,
+    { id: number; data: BodyType<CreateVerticalJumpBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof addVerticalJump>>,
+  TError,
+  { id: number; data: BodyType<CreateVerticalJumpBody> },
+  TContext
+> => {
+  return useMutation(getAddVerticalJumpMutationOptions(options));
+};
 
 /**
  * @summary Get team-level summary stats

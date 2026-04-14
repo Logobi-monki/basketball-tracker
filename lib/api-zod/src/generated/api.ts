@@ -304,6 +304,40 @@ export const GetLeaderboardResponseItem = zod.object({
 export const GetLeaderboardResponse = zod.array(GetLeaderboardResponseItem);
 
 /**
+ * @summary Get vertical jump history for a player
+ */
+export const GetVerticalJumpHistoryParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const GetVerticalJumpHistoryResponseItem = zod.object({
+  id: zod.number(),
+  playerId: zod.number(),
+  valueInches: zod.number(),
+  valueCm: zod.number(),
+  date: zod.string(),
+  notes: zod.string().nullish(),
+  createdAt: zod.string(),
+});
+export const GetVerticalJumpHistoryResponse = zod.array(
+  GetVerticalJumpHistoryResponseItem,
+);
+
+/**
+ * @summary Record a vertical jump measurement
+ */
+export const AddVerticalJumpParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AddVerticalJumpBody = zod.object({
+  valueInches: zod.number().optional(),
+  valueCm: zod.number().optional(),
+  date: zod.string(),
+  notes: zod.string().optional(),
+});
+
+/**
  * @summary Get team-level summary stats
  */
 export const GetTeamSummaryResponse = zod.object({

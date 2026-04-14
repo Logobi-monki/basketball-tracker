@@ -9,6 +9,7 @@
 export * from "./createGameBody";
 export * from "./createPlayerBody";
 export * from "./createStatBody";
+export * from "./createVerticalJumpBody";
 export * from "./errorResponse";
 export * from "./game";
 export * from "./gameStat";
@@ -19,3 +20,4 @@ export * from "./playerAnalytics";
 export * from "./successResponse";
 export * from "./teamSummary";
 export * from "./trendPoint";
+export * from "./verticalJumpEntry";

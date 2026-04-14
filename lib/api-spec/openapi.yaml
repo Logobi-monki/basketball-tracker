@@ -290,6 +290,50 @@ paths:
                 items:
                   $ref: "#/components/schemas/LeaderboardEntry"
 
+  /players/{id}/vertical-jump:
+    get:
+      operationId: getVerticalJumpHistory
+      tags: [players]
+      summary: Get vertical jump history for a player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Vertical jump entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VerticalJumpEntry"
+    post:
+      operationId: addVerticalJump
+      tags: [players]
+      summary: Record a vertical jump measurement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateVerticalJumpBody"
+      responses:
+        "201":
+          description: Entry recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerticalJumpEntry"
+
   /analytics/team-summary:
     get:
       operationId: getTeamSummary
@@ -669,6 +713,46 @@ components:
         - rpg
         - efficiencyRating
         - gamesPlayed
+
+    VerticalJumpEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        playerId:
+          type: integer
+        valueInches:
+          type: number
+        valueCm:
+          type: number
+        date:
+          type: string
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+      required:
+        - id
+        - playerId
+        - valueInches
+        - valueCm
+        - date
+        - createdAt
+
+    CreateVerticalJumpBody:
+      type: object
+      properties:
+        valueInches:
+          type: number
+        valueCm:
+          type: number
+        date:
+          type: string
+        notes:
+          type: string
+      required:
+        - date
 
     TeamSummary:
       type: object

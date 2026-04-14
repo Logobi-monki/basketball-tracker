@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment
+.env
+.env.local
+
+# Database (dev only — never commit)
+database.db
+*.sqlite3
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flask
+instance/
+.webassets-cache
+
+# Alembic auto-generated
+migrations/versions/*.py
+!migrations/env.py
+!migrations/script.py.mako
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage

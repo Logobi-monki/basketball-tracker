@@ -1,0 +1,278 @@
+You are a senior backend engineer and system architect specializing in production SaaS systems for sports analytics and athlete performance tracking.
+
+I am building a basketball + athletic development tracking platform.
+
+You must generate a FULL production-ready backend codebase.
+
+---
+
+# CRITICAL REQUIREMENT (IMPORTANT)
+
+The project MUST follow an existing folder structure.
+
+If you change, add, remove, or refactor any folder or file:
+- You MUST explicitly explain what changed
+- You MUST explain WHY it changed
+- You MUST show EXACT new folder structure
+- You MUST explain how to set it up step-by-step
+
+No silent architectural changes allowed.
+
+---
+
+# BASE FOLDER STRUCTURE (MUST START FROM THIS)
+
+The backend must initially follow this structure:
+
+
+basketball-tracker-backend/
+│
+├── app.py
+├── db.py
+├── models.py
+│
+├── routes/
+│ ├── players.py
+│ ├── games.py
+│ ├── basketball_stats.py
+│ ├── athletic_metrics.py
+│ └── analytics.py
+│
+├── services/
+│ ├── stats_service.py
+│ ├── athletic_service.py
+│ └── analytics_service.py
+│
+├── config/
+│ ├── config.py
+│
+├── migrations/ (optional if using Alembic)
+│
+├── requirements.txt
+└── database.db (dev only)
+
+
+You must respect this structure unless explicitly justified.
+
+---
+
+# PROJECT GOAL
+
+This system tracks:
+
+## 1. Basketball performance
+- per game stats
+- season tracking
+- performance trends
+
+## 2. Athletic development (VERY IMPORTANT)
+Manual tracking of physical performance over time:
+
+### Jump metrics
+- vertical jump (cm/inches)
+- standing vertical
+- running vertical
+- broad jump
+
+### Speed & agility
+- 10m sprint
+- 20m sprint
+- full court sprint
+- agility drills
+
+### Strength
+- squat max
+- bench press
+- deadlift
+
+### Conditioning
+- beep test
+- VO2 estimate
+- fatigue score
+
+---
+
+# CORE REQUIREMENTS
+
+## Backend stack:
+- Python Flask (REST API)
+- SQLAlchemy ORM (required)
+- PostgreSQL-ready design
+- Modular architecture (routes/services/models)
+- Migration-ready (Alembic recommended)
+
+---
+
+# FEATURES
+
+## 1. Player system
+- CRUD players
+- player profiles
+- link all stats + athletic data
+
+## 2. Basketball tracking
+- games
+- per-game stats
+- season aggregation
+
+## 3. Athletic tracking system (CORE FEATURE)
+- manual metric entry system
+- time-series tracking
+- multi-category metrics
+- historical progression analysis
+
+Each entry must include:
+- metric type
+- value
+- unit
+- date
+- optional notes
+
+---
+
+## 4. Analytics engine
+
+### Basketball analytics:
+- PPG / APG / RPG
+- efficiency rating
+- last 5 games form
+- season totals
+
+### Athletic analytics:
+- vertical jump progression over time
+- sprint improvement rate
+- strength progression curves
+- consistency and volatility metrics
+
+---
+
+# DATABASE DESIGN
+
+Use SQLAlchemy ORM.
+
+Design relational schema with:
+
+- players
+- games
+- basketball_stats
+- athletic_metrics
+- metric_types (normalized table recommended)
+
+Include:
+- foreign keys
+- relationships
+- indexing strategy
+
+---
+
+# API DESIGN (REST)
+
+Must include full endpoints:
+
+Examples:
+- GET /players
+- POST /players
+- GET /players/<id>
+- POST /players/<id>/basketball-stats
+- POST /players/<id>/athletic-metrics
+- GET /players/<id>/analytics
+
+---
+
+# SYSTEM DESIGN REQUIREMENTS
+
+Provide:
+
+## 1. Architecture overview
+Frontend → Flask API → Services → Database
+
+## 2. Separation of concerns
+- routes = API layer only
+- services = business logic
+- models = database schema
+
+## 3. Data flow explanation
+
+---
+
+# CODE REQUIREMENTS
+
+You must generate:
+
+## 1. Full working backend codebase
+- Flask app initialization
+- Blueprints
+- SQLAlchemy models
+- Service layer logic
+
+## 2. Example implementations:
+- create player
+- add athletic metric
+- compute progression over time
+- compute basketball averages
+
+## 3. Clean JSON outputs for frontend:
+- time-series format for graphs
+- structured analytics responses
+
+---
+
+# POSTGRESQL MIGRATION PATH
+
+Explain clearly:
+
+- how to move from SQLite → PostgreSQL
+- config changes required
+- SQLAlchemy adjustments (if any)
+- production deployment considerations
+
+---
+
+# DATA VISUALIZATION SUPPORT
+
+Backend must output data optimized for frontend charts:
+
+- vertical jump progression graph
+- sprint improvement timeline
+- strength progression curves
+- basketball performance trends
+
+---
+
+# DIAGRAMS (MANDATORY)
+
+Provide:
+
+## 1. System architecture diagram (text-based)
+Frontend → API → Services → DB
+
+## 2. Database schema diagram
+Tables + relationships
+
+## 3. Athlete progression flow diagram
+How metrics are stored and queried over time
+
+---
+
+# OUTPUT FORMAT
+
+1. Architecture overview
+2. Final folder structure (must match or explain changes)
+3. SQLAlchemy models
+4. API routes
+5. Service layer logic
+6. Example code snippets
+7. PostgreSQL migration guide
+8. ASCII diagrams
+9. Critique (what is missing / risks)
+10. Scaling roadmap (SaaS-level improvements)
+
+---
+
+# FINAL RULES
+
+- Be extremely technical and production-ready
+- No beginner-level code
+- No missing explanations
+- No silent assumptions
+- Treat this like a real SaaS product used by coaches, scouts, and performance labs

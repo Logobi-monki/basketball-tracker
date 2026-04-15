@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { Activity, Users, LayoutDashboard, CalendarDays } from "lucide-react";
+import { Activity, Users, LayoutDashboard, CalendarDays, Radio } from "lucide-react";
 
 export function Layout({ children }: { children: ReactNode }) {
   const [location] = useLocation();
@@ -30,7 +30,17 @@ export function Layout({ children }: { children: ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-4 border-t border-sidebar-border text-xs text-muted-foreground font-mono">
+        <div className="px-4 pb-4">
+          <Link
+            href="/game-mode"
+            className="flex items-center gap-2 w-full px-3 py-2.5 rounded-md bg-primary/10 border border-primary/20 text-primary text-sm font-bold uppercase tracking-wider hover:bg-primary/20 transition-colors"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <Radio className="w-4 h-4" />
+            Game Mode
+          </Link>
+        </div>
+        <div className="px-4 pb-4 border-t border-sidebar-border pt-4 text-xs text-muted-foreground font-mono">
           SYSTEM_STATUS: ONLINE
           <br />
           VERSION: 1.0.0

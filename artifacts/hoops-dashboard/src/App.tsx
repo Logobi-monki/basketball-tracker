@@ -11,6 +11,7 @@ import PlayersList from "@/pages/players-list";
 import PlayerProfile from "@/pages/player-profile";
 import GamesList from "@/pages/games-list";
 import NewPlayer from "@/pages/new-player";
+import GameMode from "@/pages/game-mode";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,16 +24,21 @@ const queryClient = new QueryClient({
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/players" component={PlayersList} />
-        <Route path="/players/new" component={NewPlayer} />
-        <Route path="/players/:id" component={PlayerProfile} />
-        <Route path="/games" component={GamesList} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <Route path="/game-mode" component={GameMode} />
+      <Route>
+        <Layout>
+          <Switch>
+            <Route path="/" component={Dashboard} />
+            <Route path="/players" component={PlayersList} />
+            <Route path="/players/new" component={NewPlayer} />
+            <Route path="/players/:id" component={PlayerProfile} />
+            <Route path="/games" component={GamesList} />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Route>
+    </Switch>
   );
 }
 

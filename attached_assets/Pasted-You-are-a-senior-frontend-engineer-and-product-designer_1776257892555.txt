@@ -1,0 +1,185 @@
+You are a senior frontend engineer and product designer specializing in real-time sports applications and high-performance dashboards.
+
+I am building a basketball athlete tracking web app with a LIVE “Game Mode” used by coaches during games.
+
+Your task is to design and implement a clean, professional, production-ready React UI for this feature.
+
+---
+
+# CONTEXT
+
+This is NOT a regular dashboard.
+
+This is a **real-time coaching tool** used during a live basketball game, often on a tablet.
+
+The UI must prioritize:
+- speed
+- clarity
+- minimal taps
+- zero confusion
+
+---
+
+# CORE FEATURE: GAME MODE
+
+When Game Mode is ON:
+- A coach tracks player performance live
+- Stats are entered in real-time
+- Players can be subbed in/out
+- Playtime is tracked per player
+
+---
+
+# UI REQUIREMENTS
+
+## 1. Layout
+
+Design a full screen layout with:
+
+- Top bar (game status, timer, score, opponent, end game button)
+- Main section split into:
+  - ON COURT players (5 max)
+  - BENCH players (substitutions)
+- Bottom event/control bar (undo, timeout, etc.)
+
+---
+
+## 2. Player Row (CRITICAL COMPONENT)
+
+Each on-court player must have:
+
+### A. Identity
+- name
+- optional number
+
+### B. Playtime
+- live timer display
+- start / pause button
+
+### C. Stat buttons (1-tap input)
+- +2 points
+- +3 points
+- assist
+- rebound
+- steal
+- block
+- turnover
+
+### D. Controls
+- +/- correction
+- remove player from session
+
+Design must be:
+- touch-friendly (large buttons)
+- fast to use
+- visually clean
+
+---
+
+## 3. Bench System
+
+- List of players not on court
+- “SUB IN” button
+- When subbed in:
+  - player moves to court
+  - timer starts automatically
+
+---
+
+## 4. Substitution Logic
+
+- Only 5 players max on court
+- Sub OUT:
+  - player moves to bench
+  - timer stops
+- Sub IN:
+  - player moves to court
+  - timer starts
+
+---
+
+## 5. Event Bar (bottom)
+
+Include:
+- Undo last action
+- Timeout button (optional)
+- Game controls (optional)
+
+---
+
+# DESIGN STYLE
+
+Follow a hybrid style:
+
+### 1. Vert-style (primary)
+- dark theme (#0A0A0A)
+- minimal UI
+- large numbers
+- clean cards
+
+### 2. ESPN influence (secondary)
+- structured layout
+- clear stat hierarchy
+
+---
+
+# UX REQUIREMENTS
+
+- One tap = one action
+- No clutter
+- Fast scanning
+- Works on tablet (iPad-like usage)
+- Buttons must be large and spaced
+- Active players visually highlighted
+
+---
+
+# TECH REQUIREMENTS
+
+- React (functional components)
+- Clean component architecture
+- Reusable components (PlayerRow, StatButton, Bench, TopBar, etc.)
+- Tailwind CSS (preferred) OR clean CSS
+
+---
+
+# OUTPUT FORMAT
+
+You must provide:
+
+## 1. UI/UX explanation
+Explain your design decisions clearly
+
+## 2. Layout structure (ASCII or grid)
+
+## 3. Full React component structure
+- GameMode page
+- PlayerRow
+- StatButton
+- Bench
+- TopBar
+- EventBar
+
+## 4. Example code (important)
+Provide real working React components
+
+## 5. UX improvements
+Suggest ways to improve speed and usability
+
+## 6. Critical feedback
+Point out flaws or risks in this design
+
+---
+
+# IMPORTANT
+
+Do NOT design a generic dashboard.
+
+This must feel like:
+- a real coaching tool
+- used live during a game
+- optimized for speed and performance
+
+Think like you're building software for real coaches on the sideline.
+
+Be practical, not decorative.

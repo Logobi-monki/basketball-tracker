@@ -35,7 +35,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 For any queries or feedback, feel free to reach out to the project maintainer:
-- **Your Name**  
+- **Logobi-monki**  
   [your_email@example.com]  
   [LinkedIn Profile](https://linkedin.com/in/yourprofile)
 

@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "ZT3-e34YDn-Yk7m8vCiK3"
+uri = "file://hoops-analytics-source.md"
+type = "text"
+title = "Hoops Analytics — Full Source Code & Folder Structure"

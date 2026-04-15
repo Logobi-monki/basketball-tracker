@@ -170,3 +170,7 @@ export interface TeamSummary {
   topAssister: string;
   topRebounder: string;
 }
+
+export type DeleteGame200 = {
+  message: string;
+};

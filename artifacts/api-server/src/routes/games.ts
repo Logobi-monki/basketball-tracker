@@ -2,7 +2,7 @@ import { Router } from "express";
 import { db } from "@workspace/db";
 import { gamesTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
-import { CreateGameBody, GetGameParams } from "@workspace/api-zod";
+import { CreateGameBody, GetGameParams, DeleteGameParams } from "@workspace/api-zod";
 
 const router = Router();
 
@@ -35,6 +35,17 @@ router.get("/games/:id", async (req, res) => {
     res.json(formatGame(game));
   } catch (err) {
     req.log.error({ err }, "Failed to get game");
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/games/:id", async (req, res) => {
+  try {
+    const { id } = DeleteGameParams.parse({ id: Number(req.params.id) });
+    await db.delete(gamesTable).where(eq(gamesTable.id, id));
+    res.json({ message: "Game deleted" });
+  } catch (err) {
+    req.log.error({ err }, "Failed to delete game");
     res.status(500).json({ error: "Internal server error" });
   }
 });

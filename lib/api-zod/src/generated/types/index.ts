@@ -10,6 +10,7 @@ export * from "./createGameBody";
 export * from "./createPlayerBody";
 export * from "./createStatBody";
 export * from "./createVerticalJumpBody";
+export * from "./deleteGame200";
 export * from "./errorResponse";
 export * from "./game";
 export * from "./gameStat";

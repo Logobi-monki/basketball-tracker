@@ -230,6 +230,17 @@ export const GetGameResponse = zod.object({
 });
 
 /**
+ * @summary Delete a game
+ */
+export const DeleteGameParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const DeleteGameResponse = zod.object({
+  message: zod.string(),
+});
+
+/**
  * @summary List all game stats
  */
 export const ListStatsResponseItem = zod.object({
